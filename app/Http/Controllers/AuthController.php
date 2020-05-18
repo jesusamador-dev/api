@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -37,24 +38,26 @@ class AuthController extends Controller
             } else {
                 return response()->json([
                     'succes' => false,
-                    'error' => 'credenciales incorrectas',
+                    'error' => 'El email o la contraseña son incorrectos, intente nuevamente.',
                 ], 200);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'no se pudo creear el token'], 500);
+            return response()->json(['error' => 'No se pudo crear el token'], 500);
         }
     }
 
     /**
      * Registra un nuevo usuario
      * @param Request
-     * @return responseJSON */
+     * @return responseJSON
+     *
+     * */
 
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
