@@ -28,3 +28,16 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 });
+
+Route::group([
+    'prefix' => 'products'
+], function () {
+    Route::post('create', ['middleware' => 'auth.role: admin', 'uses' => 'ProductsController@store', 'as' => 'create']);
+});
+
+Route::group([
+    'prefix' => 'categories'
+], function () {
+    Route::post('create', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@store', 'as' => 'create']);
+    Route::post('destroy/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@destroy', 'as' => 'destroy']);
+});

@@ -32,8 +32,9 @@ class RoleAuthorization
             return $this->unauthorized('Tu token es invalido. Por favor vuelve a iniciar sesión.');
         } catch (JWTException $e) {
             //Excepción por si no viene token en la solicitud
-            return $this->unauthorized('Por favor incluye un toquen de autorización en tu solicitud');
+            return $this->unauthorized('Por favor incluye un token de autorización en tu solicitud');
         }
+
         //Si el usuario se autenticó correctamente y pertenece al role correcto se enviará la solicitud
         if ($user && in_array($user->role, $roles)) {
             return $next($request);

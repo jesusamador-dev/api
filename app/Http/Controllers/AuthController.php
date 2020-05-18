@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -55,25 +55,19 @@ class AuthController extends Controller
 
     public function register(RegisterUserRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
+        $password = Hash::make($request->password);
+        $parametros = array(
+            $request->name,
+            $password,
+            $request->email,
+            $request->role
+        );
+        $result = DB::select("call sp_CreateUser(?, ?, ?, ?)", $parametros);
+        if ($result[0] = 'ok') {
+            return response()->json(['success' => true, 'message' => 'Te registraste correctamente'], 200);
+        } else {
+            return response()->json($result, 400);
         }
-
-        $user = User::create([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
-        ]);
-
-        $token = JWTAuth::fromUser($user);
-
-        return response()->json(compact('user', 'token'), 201);
     }
 
     /**
@@ -105,23 +99,5 @@ class AuthController extends Controller
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh());
-    }
-
-
-    /**
-     * Devuelve la estructura del token
-     *
-     * @param string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 600,
-            'user' => auth()->user(),
-        ]);
     }
 }
