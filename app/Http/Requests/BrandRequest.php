@@ -13,7 +13,7 @@ class BrandRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,40 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique|string|between:2,20',
+            'status' => 'required'
         ];
+    }
+
+
+    public function messages()
+    {
+        return [
+            'required' => 'El campo :attribute es obligatorio.',
+            'name.unique' => 'Ya existe una marca con éste nombre.',
+            'between' => 'El campo :attribute debe tener entre :min y :max caracteres.',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'nombre',
+            'status' => 'estado'
+        ];
+    }
+    /**
+     *
+     * Se sobreescribe éste método para regresara un json con los mensajes de error
+     * @Overraide
+     *
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = (new ValidationException($validator))->errors();
+
+        throw new HttpResponseException(
+            response()->json(['success' => false, 'errors' => $errors], JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+        );
     }
 }
