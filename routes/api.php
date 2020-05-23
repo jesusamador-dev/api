@@ -18,26 +18,67 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-
+/**
+ * Rutas para el manejo de usuarios
+ */
 Route::group([
     'prefix' => 'auth'
 ], function () {
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
-    Route::post('logout', ['middleware' => 'auth.role: admin, client', 'uses' => 'AuthController@logout', 'as' => 'logout']);
-    Route::post('refresh', 'AuthController@refresh');
+    Route::post('logout', ['middleware' => 'auth.role:admin,client', 'uses' => 'AuthController@logout', 'as' => 'logout']);
     Route::post('me', 'AuthController@me');
 });
 
+/**
+ * Rutas para los producctos
+ */
 Route::group([
     'prefix' => 'products'
 ], function () {
-    Route::post('create', ['middleware' => 'auth.role: admin', 'uses' => 'ProductsController@store', 'as' => 'create']);
+    Route::post('create', ['middleware' => 'auth.role:admin', 'uses' => 'ProductsController@store', 'as' => 'create']);
 });
 
+/**
+ * Rutas paa las categorias
+ */
 Route::group([
     'prefix' => 'categories'
 ], function () {
+    Route::post('get/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@index', 'as' => 'get']);
+    Route::post('get', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@index', 'as' => 'get']);
     Route::post('create', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@store', 'as' => 'create']);
     Route::post('destroy/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@destroy', 'as' => 'destroy']);
+    Route::post('update/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@update', 'as' => 'update']);
+    Route::post('edit/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@edit', 'as' => 'edit']);
+});
+
+/**
+ * Rutas para los departamentos
+ */
+Route::group([
+    'prefix' => 'departments'
+], function () {
+    Route::post('get/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@index', 'as' => 'get']);
+    Route::post('get', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@index', 'as' => 'get']);
+    Route::post('create', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@store', 'as' => 'create']);
+    Route::post('destroy/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@destroy', 'as' => 'destroy']);
+    Route::post('update/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@update', 'as' => 'update']);
+    Route::post('edit/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@edit', 'as' => 'edit']);
+});
+
+
+
+/**
+ * Rutas para las marcas
+ */
+Route::group([
+    'prefix' => 'brands'
+], function () {
+    Route::post('get/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@index', 'as' => 'get']);
+    Route::post('get', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@index', 'as' => 'get']);
+    Route::post('create', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@store', 'as' => 'create']);
+    Route::post('destroy/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@destroy', 'as' => 'destroy']);
+    Route::post('update/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@update', 'as' => 'update']);
+    Route::post('edit/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@edit', 'as' => 'edit']);
 });

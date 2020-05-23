@@ -90,14 +90,4 @@ class AuthController extends Controller
         auth()->logout();
         return response()->json(['message' => 'ok']);
     }
-
-    /**
-     * Refresca el tiempo de vida del token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
 }
