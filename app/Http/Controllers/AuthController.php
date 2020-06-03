@@ -31,13 +31,13 @@ class AuthController extends Controller
             $token = JWTAuth::attempt($credentials);
             if ($token) {
                 return response()->json([
-                    'succes' => true,
+                    'success' => true,
                     'token' => $token,
                     'user' => User::where('email', $credentials['email'])->get()->first()
                 ], 200);
             } else {
                 return response()->json([
-                    'succes' => false,
+                    'success' => false,
                     'error' => 'El email o la contraseña son incorrectos, intente nuevamente.',
                 ], 200);
             }
