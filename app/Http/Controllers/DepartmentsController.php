@@ -41,7 +41,6 @@ class DepartmentsController extends Controller
     {
         try {
             $department = new Department();
-
             $department->name = $request->name;
             $department->status = $request->status;
             if ($department->save()) {
