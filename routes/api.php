@@ -68,9 +68,9 @@ Route::group([
     Route::get('get/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@index', 'as' => 'get']);
     Route::get('get', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@index', 'as' => 'get']);
     Route::post('create', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@store', 'as' => 'create']);
-    Route::post('destroy/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@destroy', 'as' => 'destroy']);
-    Route::post('update/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@update', 'as' => 'update']);
-    Route::post('edit/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@edit', 'as' => 'edit']);
+    Route::delete('destroy/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@destroy', 'as' => 'destroy']);
+    Route::put('update/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@update', 'as' => 'update']);
+    Route::get('edit/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'DepartmentsController@edit', 'as' => 'edit']);
 });
 
 

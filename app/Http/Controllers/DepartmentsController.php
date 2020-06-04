@@ -25,7 +25,7 @@ class DepartmentsController extends Controller
         if ($status) {
             $departments = Department::where('status', $status)->orderBy('create_at', 'desc')->get();
         } else {
-            $departments = Department::all();
+            $departments = Department::all()->orderBy('create_at', 'desc')->get();
         }
 
         return response()->json(['success' => true, 'departments' => $departments]);
@@ -62,7 +62,6 @@ class DepartmentsController extends Controller
     public function destroy($id)
     {
         try {
-
             if (Department::destroy($id)) {
                 return response()->json(['success' => true, 'message' => 'Se ha eliminado el departamento correctamente.'], 200);
             } else {
