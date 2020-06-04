@@ -25,7 +25,7 @@ class DepartmentsController extends Controller
         if ($status) {
             $departments = Department::where('status', $status)->orderBy('create_at', 'desc')->get();
         } else {
-            $departments = Department::all()->orderBy('create_at', 'desc')->get();
+            $departments = Department::orderBy('create_at', 'desc')->get();
         }
 
         return response()->json(['success' => true, 'departments' => $departments]);
