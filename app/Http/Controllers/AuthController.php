@@ -79,7 +79,10 @@ class AuthController extends Controller
     {
         return response()->json(auth()->user());
     }
-
+    public function payload()
+    {
+        return response()->json(auth()->payload());
+    }
     /**
      * Cierra la sesión
      *
@@ -89,5 +92,21 @@ class AuthController extends Controller
     {
         auth()->logout();
         return response()->json(['message' => 'ok']);
+    }
+
+
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'success' => true,
+            'access_token' => $token,
+            'expires_in' => auth()->factory()->getTTL() - 59,
+            'user' => auth()->user(),
+        ]);
     }
 }

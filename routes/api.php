@@ -28,6 +28,7 @@ Route::group([
     Route::post('register', 'AuthController@register');
     Route::post('logout', ['middleware' => 'auth.role:admin,client', 'uses' => 'AuthController@logout', 'as' => 'logout']);
     Route::post('me', 'AuthController@me');
+    Route::post('refresh', 'AuthController@refresh');
 });
 
 /**
