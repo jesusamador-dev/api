@@ -23,7 +23,7 @@ class DepartmentsController extends Controller
     {
         $departments = "";
         if ($status) {
-            $departments = Department::where('status', $status)->get();
+            $departments = Department::where('status', $status)->orderBy('create_at', 'desc')->get();
         } else {
             $departments = Department::all();
         }
