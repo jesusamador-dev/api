@@ -30,11 +30,12 @@ class AuthController extends Controller
         try {
             $token = JWTAuth::attempt($credentials);
             if ($token) {
-                return response()->json([
-                    'success' => true,
-                    'token' => $token,
-                    'user' => User::where('email', $credentials['email'])->get()->first()
-                ], 200);
+                return $this->respondWithToken($token);
+                // return response()->json([
+                //     'success' => true,
+                //     'token' => $token,
+                //     'user' => User::where('email', $credentials['email'])->get()->first()
+                // ], 200);
             } else {
                 return response()->json([
                     'success' => false,
