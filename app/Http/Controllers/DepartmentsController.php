@@ -62,9 +62,8 @@ class DepartmentsController extends Controller
     public function destroy($id)
     {
         try {
-            $department = Department::find($id);
-            $department->status = 2;
-            if ($department->save()) {
+
+            if (Department::destroy($id)) {
                 return response()->json(['success' => true, 'message' => 'Se ha eliminado el departamento correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha eliminado el departamento.'], 413);
