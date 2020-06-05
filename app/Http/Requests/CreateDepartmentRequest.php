@@ -7,6 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 
 class CreateDepartmentRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class CreateDepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:departments,name,name,' . $this->route('departments.id') . '|string|between:2,20',
+            'name' => 'required|unique:departments,name,name,' . Rule::unique('users')->ignore($department->id) . '|string|between:2,20',
             'status' => 'required'
         ];
     }
