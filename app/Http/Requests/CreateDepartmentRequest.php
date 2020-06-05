@@ -28,7 +28,7 @@ class CreateDepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:departments,name,' . $this->route('departments.id') . '|string|between:2,20',
+            'name' => 'required|unique:departments,name,name,' . $this->route('departments.id') . '|string|between:2,20',
             'status' => 'required'
         ];
     }
