@@ -45,9 +45,9 @@ class BrandsController extends Controller
             $brand->name = $request->name;
             $brand->status = $request->status;
             if ($brand->save()) {
-                return response()->json(['success' => true, 'message' => 'Se ha creado el departamento correctamente.'], 200);
+                return response()->json(['success' => true, 'message' => 'Se ha creado la marca correctamente.'], 200);
             } else {
-                return response()->json(['success' => false, 'message' => 'No se ha creado el departamento.'], 413);
+                return response()->json(['success' => false, 'message' => 'No se ha creado la marca departamento.'], 413);
             }
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
@@ -66,9 +66,9 @@ class BrandsController extends Controller
             $brand = Brand::find($id);
             $brand->status = 2;
             if ($brand->save()) {
-                return response()->json(['success' => true, 'message' => 'Se ha eliminado el departamento correctamente.'], 200);
+                return response()->json(['success' => true, 'message' => 'Se ha eliminado la marca correctamente.'], 200);
             } else {
-                return response()->json(['success' => false, 'message' => 'No se ha eliminado el departamento.'], 413);
+                return response()->json(['success' => false, 'message' => 'No se ha eliminado la marca.'], 413);
             }
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
@@ -102,9 +102,9 @@ class BrandsController extends Controller
             $brand->name = $request->name;
             $brand->status = $request->status;
             if ($brand->save()) {
-                return response()->json(['success' => true, 'message' => 'Se ha actualzado el departamento correctamente.'], 200);
+                return response()->json(['success' => true, 'message' => 'Se ha actualzado la marca correctamente.'], 200);
             } else {
-                return response()->json(['success' => false, 'message' => 'No se ha actualizado el departamento.'], 413);
+                return response()->json(['success' => false, 'message' => 'No se ha actualizado marca.'], 413);
             }
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
