@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Categorie;
+use App\Category;
 use App\Http\Requests\CategorieRequest;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,6 +11,23 @@ class CategoriesController extends Controller
 {
     public function __construct()
     {
+    }
+
+    public function index($status = null)
+    {
+        $categories = "";
+        if ($status) {
+            $categories = Category::join('departments', 'categories.id_department', '=', 'departments.id')
+                ->select('categories.*', 'departments.name as department')
+                ->where('categories.status', $status)
+                ->get();
+        } else {
+            $categories = Category::join('departments', 'categories.id_department', '=', 'departments.id')
+                ->select('categories.*', 'departments.name as department')
+                ->get();
+        }
+
+        return response()->json(['success' => true, 'categories' => $categories]);
     }
 
     /**
@@ -22,10 +39,11 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         try {
-            $department = new Categorie();
-            $department->name = $request->name;
-            $department->status = $request->status;
-            if ($department->save()) {
+            $categorie = new Category();
+            $categorie->name = $request->name;
+            $categorie->status = $request->status;
+            $categorie->id_department = $request->department;
+            if ($categorie->save()) {
                 return response()->json(['success' => true, 'message' => 'Se ha creado la categoria correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha creado la categoria.'], 413);
@@ -44,7 +62,7 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         try {
-            $categorie = Categorie::find($id);
+            $categorie = Category::find($id);
             $categorie->status = 2;
             if ($categorie->save()) {
                 return response()->json(['success' => true, 'message' => 'Se ha eliminado la categoria correctamente.'], 200);
@@ -65,7 +83,7 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $categorie = Categorie::where('id', $id)->get();
+        $categorie = Category::where('id', $id)->get();
         return response()->json(['success' => true, 'categorie' => $categorie]);
     }
 
@@ -79,7 +97,7 @@ class CategoriesController extends Controller
     public function update(CategorieRequest $request, $id)
     {
         try {
-            $categorie = Categorie::find($id);
+            $categorie = Category::find($id);
             $categorie->name = $request->name;
             $categorie->status = $request->status;
             $categorie->department = $request->department;
