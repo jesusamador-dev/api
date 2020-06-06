@@ -28,7 +28,7 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:brands|string|between:2,20',
+            'name' => 'required|unique:brands,name,' . $this->id . '|string|between:2,20',
             'status' => 'required'
         ];
     }
