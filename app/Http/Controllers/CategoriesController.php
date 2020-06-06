@@ -95,11 +95,11 @@ class CategoriesController extends Controller
     public function update(CategorieRequest $request, $id)
     {
         try {
-            $categorie = Category::find($id);
-            $categorie->name = $request->name;
-            $categorie->status = $request->status;
-            $categorie->department = $request->department;
-            if ($categorie->save()) {
+            $category = Category::find($id);
+            $category->name = $request->name;
+            $category->status = $request->status;
+            $category->id_department = $request->department;
+            if ($category->save()) {
                 return response()->json(['success' => true, 'message' => 'Se ha actualzado la categoria correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha actualizado la categoria.'], 413);
