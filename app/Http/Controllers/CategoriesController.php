@@ -62,9 +62,7 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         try {
-            $categorie = Category::find($id);
-            $categorie->status = 2;
-            if ($categorie->save()) {
+            if (Category::destroy($id)) {
                 return response()->json(['success' => true, 'message' => 'Se ha eliminado la categoria correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha eliminado la categoria.'], 413);
