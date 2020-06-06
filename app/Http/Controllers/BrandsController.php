@@ -63,9 +63,8 @@ class BrandsController extends Controller
     public function destroy($id)
     {
         try {
-            $brand = Brand::find($id);
-            $brand->status = 2;
-            if ($brand->save()) {
+
+            if (Brand::destroy($id)) {
                 return response()->json(['success' => true, 'message' => 'Se ha eliminado la marca correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha eliminado la marca.'], 413);
