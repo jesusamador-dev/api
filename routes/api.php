@@ -81,10 +81,10 @@ Route::group([
 Route::group([
     'prefix' => 'brands'
 ], function () {
-    Route::post('get/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@index', 'as' => 'get']);
-    Route::post('get', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@index', 'as' => 'get']);
+    Route::get('get/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@index', 'as' => 'get']);
+    Route::get('get', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@index', 'as' => 'get']);
     Route::post('create', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@store', 'as' => 'create']);
-    Route::post('destroy/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@destroy', 'as' => 'destroy']);
-    Route::post('update/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@update', 'as' => 'update']);
-    Route::post('edit/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@edit', 'as' => 'edit']);
+    Route::delete('destroy/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@destroy', 'as' => 'destroy']);
+    Route::put('update/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@update', 'as' => 'update']);
+    Route::get('edit/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'BrandsController@edit', 'as' => 'edit']);
 });
