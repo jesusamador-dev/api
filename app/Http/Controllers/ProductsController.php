@@ -22,10 +22,10 @@ class ProductsController extends Controller
                 ->where('products.id', $id)
                 ->get();
         } else {
-            $departments = DB::table('products')
-                ->join('departments', 'products.id_department', 'departments.id')
+            $departments = Product::join('departments', 'products.id_department', 'departments.id')
                 ->join('categories', 'products.id_category', 'categories.id')
                 ->join('brands', 'products.id_brand', 'brands.id')
+                ->select('products.*', 'brands.name as brand', 'department.name as department', 'categories.name as category')
                 ->get();
         }
 
