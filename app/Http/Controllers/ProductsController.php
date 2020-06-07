@@ -25,7 +25,7 @@ class ProductsController extends Controller
             $departments = Product::join('departments', 'products.id_department', 'departments.id')
                 ->join('categories', 'products.id_category', 'categories.id')
                 ->join('brands', 'products.id_brand', 'brands.id')
-                ->select('products.*', 'brands.name as brand', 'department.name as department', 'categories.name as category')
+                ->select('products.*', 'brands.name as brand', 'departments.name as department', 'categories.name as category')
                 ->get();
         }
 
