@@ -30,6 +30,27 @@ class CategoriesController extends Controller
         return response()->json(['success' => true, 'categories' => $categories]);
     }
 
+    public function getByDepartment($id, $status)
+    {
+        $categories = "";
+        if ($status) {
+            $categories = Category::join('departments', 'categories.id_department', '=', 'departments.id')
+                ->select('categories.*', 'departments.name as department')
+                ->where([
+                    ['categories.status', '=', $status],
+                    ['categories.id_department', '=', $id],
+                ])
+                ->get();
+        } else {
+            $categories = Category::join('departments', 'categories.id_department', '=', 'departments.id')
+                ->select('categories.*', 'departments.name as department')
+                ->where('categories.id_department', $id)
+                ->get();
+        }
+
+        return response()->json(['success' => true, 'categories' => $categories]);
+    }
+
     /**
      *
      * Se encarga de crear una nueva categoria

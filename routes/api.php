@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +51,7 @@ Route::group([
     'prefix' => 'categories'
 ], function () {
     Route::get('get/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@index', 'as' => 'get']);
+    Route::get('getByDepartment/{id}/{status}', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@getByDepartment', 'as' => 'getByDepartment']);
     Route::get('get', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@index', 'as' => 'get']);
     Route::post('create', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@store', 'as' => 'create']);
     Route::delete('destroy/{id}', ['middleware' => 'auth.role:admin', 'uses' => 'CategoriesController@destroy', 'as' => 'destroy']);
