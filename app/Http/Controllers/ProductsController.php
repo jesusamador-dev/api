@@ -80,6 +80,18 @@ class ProductsController extends Controller
     public function getCodeProduct()
     {
         $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        return substr(str_shuffle($permitted_chars), 0, 10);
+        $codeUnique = false;
+        $code = '';
+        do {
+            $code = substr(str_shuffle($permitted_chars), 0, 10);
+            $products = Product::where('code', $code)->get();
+            if ($products) {
+                $codeUnique = false;
+            } else {
+                $codeUnique = true;
+            }
+        } while ($codeUnique != true);
+
+        return $code;
     }
 }
