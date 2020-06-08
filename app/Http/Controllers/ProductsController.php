@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Product;
 use Exception;
+use Cloudder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -62,10 +63,11 @@ class ProductsController extends Controller
 
     public function uploadImages($images, $code)
     {
-        $path = public_path('/uploads/images_products/');
+        $path = '/home/images_products';
+        $i = 1;
         foreach ($images as $image) {
-            $fileName = $image->getClientOriginalName();
-            $image->move($path, $fileName);
+            // $fileName = $code . '_' . $i . $image->get;
+            Cloudder::upload($image);
         }
     }
 
