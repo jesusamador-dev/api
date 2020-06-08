@@ -38,7 +38,6 @@ class ProductsController extends Controller
         $product = new Product();
         $product->name = $request->name;
         $code = $this->getCodeProduct();
-        echo json_encode($code);
         $product->code = $code;
         $product->description = $request->description;
         $product->id_department = $request->department;
@@ -83,19 +82,14 @@ class ProductsController extends Controller
         $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $codeUnique = false;
         $code = '';
-        // do {
-        $code = substr(str_shuffle($permitted_chars), 0, 10);
-        $products = Product::where('code', $code)->get();
-        echo json_encode($products);
-        return $products;
-        // var_dump($products);
-        //     if ($products) {
-        //         $codeUnique = false;
-        //     } else {
-        //         $codeUnique = true;
-        //     }
-        // } while ($codeUnique != true);
-
-        // return $code;
+        do {
+            $code = substr(str_shuffle($permitted_chars), 0, 10);
+            $products = Product::where('code', $code)->get();
+            echo json_encode($products);
+            if (!$products) {
+                $codeUnique = true;
+            }
+        } while ($codeUnique != true);
+        return $code;
     }
 }
