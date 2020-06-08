@@ -50,7 +50,7 @@ class ProductsController extends Controller
 
         try {
             if ($product->save()) {
-                $this->uploadImages($request->images, $code);
+                $this->uploadImages($request->file('files'), $code);
                 return response()->json(['success' => true, 'message' => 'Se ha creado el producto correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha creado el producto.'], 413);
@@ -63,9 +63,9 @@ class ProductsController extends Controller
     public function uploadImages($images, $code)
     {
         echo json_encode($images);
-        // foreach ($images as $image) {
-        //     $image->store('uploads/images_products/');
-        // }
+        foreach ($images as $image) {
+            $image->store('uploads/images_products/');
+        }
     }
 
     public function getCodeProduct()
