@@ -85,7 +85,7 @@ class ProductsController extends Controller
         // do {
         $code = substr(str_shuffle($permitted_chars), 0, 10);
         $products = Product::where('code', $code)->get();
-        var_dump($products);
+        // var_dump($products);
         //     if ($products) {
         //         $codeUnique = false;
         //     } else {
