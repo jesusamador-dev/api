@@ -36,6 +36,8 @@ class ProductsController extends Controller
     {
         $product = new Product();
         $product->name = $request->name;
+        $code = $this->getCodeProduct();
+        $product->code = $code;
         $product->description = $request->description;
         $product->id_department = $request->department;
         $product->id_category = $request->category;
@@ -48,7 +50,7 @@ class ProductsController extends Controller
 
         try {
             if ($product->save()) {
-                $this->uploadImages($request->images);
+                $this->uploadImages($request->images, $code);
                 return response()->json(['success' => true, 'message' => 'Se ha creado el producto correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha creado el producto.'], 413);
@@ -58,8 +60,16 @@ class ProductsController extends Controller
         }
     }
 
-    public function uploadImages($images)
+    public function uploadImages($images, $code)
     {
-        # code...
+        foreach ($images as $image) {
+            $image->store('uploads/images_products/');
+        }
+    }
+
+    public function getCodeProduct()
+    {
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+        return substr(str_shuffle($permitted_chars), 0, 10);
     }
 }
