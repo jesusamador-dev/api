@@ -82,17 +82,17 @@ class ProductsController extends Controller
         $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $codeUnique = false;
         $code = '';
-        do {
-            $code = substr(str_shuffle($permitted_chars), 0, 10);
-            $products = Product::where('code', $code)->get();
-            var_dump($products);
-            if ($products) {
-                $codeUnique = false;
-            } else {
-                $codeUnique = true;
-            }
-        } while ($codeUnique != true);
+        // do {
+        $code = substr(str_shuffle($permitted_chars), 0, 10);
+        $products = Product::where('code', $code)->get();
+        var_dump($products);
+        //     if ($products) {
+        //         $codeUnique = false;
+        //     } else {
+        //         $codeUnique = true;
+        //     }
+        // } while ($codeUnique != true);
 
-        return $code;
+        // return $code;
     }
 }
