@@ -48,11 +48,9 @@ class ProductsController extends Controller
         $product->quantity_medium_size = $request->quantity_medium_size;
         $product->quantity_big_size = $request->quantity_big_size;
 
-        var_dump($request);
-
         try {
             if ($product->save()) {
-                $this->uploadImages($request->image, $code);
+                $this->uploadImages($request->images, $code);
                 return response()->json(['success' => true, 'message' => 'Se ha creado el producto correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha creado el producto.'], 413);
@@ -64,7 +62,7 @@ class ProductsController extends Controller
 
     public function uploadImages($images, $code)
     {
-        var_dump($images);
+        // var_dump($images);
         foreach ($images as $image) {
             $image->store('uploads/images_products/');
         }
