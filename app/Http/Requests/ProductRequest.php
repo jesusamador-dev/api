@@ -32,12 +32,12 @@ class ProductRequest extends FormRequest
             'description' => 'required|between:2,255',
             'unit_price' => 'required|numeric',
             'purchase_price' => 'required|numeric',
-            'id_department' => 'required|numeric',
-            'id_category' => 'required|numeric',
-            'id_brand' => 'required|numeric',
-            'quantity_small_price' => 'required|numeric',
-            'quantity_medium_price' => 'required|numeric',
-            'quantity_big_price' => 'required|numeric',
+            'department' => 'required|numeric',
+            'category' => 'required|numeric',
+            'brand' => 'required|numeric',
+            'quantity_small_size' => 'required|numeric',
+            'quantity_medium_size' => 'required|numeric',
+            'quantity_big_size' => 'required|numeric',
         ];
     }
 
@@ -58,12 +58,12 @@ class ProductRequest extends FormRequest
             'email' => 'email',
             'description' => 'descripción',
             'name' => 'nombre',
-            'id_department' => 'departamento',
-            'id_category' => 'categoria',
-            'id_brand' => 'marca',
-            'quantity_small_price' => 'cantidad talla chica',
-            'quantity_medium_price' => 'cantidad talla mediana',
-            'quantity_big_price' => 'cantidad talla grande'
+            'department' => 'departamento',
+            'category' => 'categoria',
+            'brand' => 'marca',
+            'quantity_small_size' => 'cantidad talla chica',
+            'quantity_medium_size' => 'cantidad talla mediana',
+            'quantity_big_size' => 'cantidad talla grande'
         ];
     }
     /**

@@ -37,9 +37,9 @@ class ProductsController extends Controller
         $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
-        $product->id_department = $request->id_department;
-        $product->id_category = $request->id_category;
-        $product->id_brand = $request->id_brand;
+        $product->id_department = $request->department;
+        $product->id_category = $request->category;
+        $product->id_brand = $request->brand;
         $product->unit_price = $request->unit_price;
         $product->purchase_price = $request->purchase_price;
         $product->quantity_small_size = $request->quantity_small_size;
@@ -48,6 +48,7 @@ class ProductsController extends Controller
 
         try {
             if ($product->save()) {
+                $this->uploadImages($request->images);
                 return response()->json(['success' => true, 'message' => 'Se ha creado el producto correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha creado el producto.'], 413);
@@ -55,5 +56,10 @@ class ProductsController extends Controller
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
         }
+    }
+
+    public function uploadImages($images)
+    {
+        # code...
     }
 }
