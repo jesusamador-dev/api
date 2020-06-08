@@ -62,9 +62,10 @@ class ProductsController extends Controller
 
     public function uploadImages($images, $code)
     {
-        echo json_encode($images);
+        $path = public_path() . '/uploads/images_products/';
         foreach ($images as $image) {
-            $image->store('uploads/images_products/');
+            $fileName = $image->getClientOriginalName();
+            $image->move($path, $fileName);
         }
     }
 
