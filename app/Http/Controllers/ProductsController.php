@@ -61,6 +61,46 @@ class ProductsController extends Controller
         }
     }
 
+    /**
+     *
+     * Elimina una un producto
+     * @param id de una categoria
+     *
+     */
+    public function destroy($id, $code)
+    {
+        try {
+            if (Product::destroy($id)) {
+                $this->destroyImages($code);
+                return response()->json(['success' => true, 'message' => 'Se ha eliminado el producto correctamente.'], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'No se ha eliminado el producto.'], 413);
+            }
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
+        }
+    }
+
+    /**
+     *
+     * Elimina las imagenes del producto
+     * @param string el código único del producto
+     *
+     */
+
+    public function destroyImages($code)
+    {
+        $path = 'images_products/' . $code;
+        Cloudder::destroy($path);
+    }
+
+    /**
+     *
+     * Aquí subimos las imagenes del producto al storage
+     * @param array de imagenes
+     * @param string con el código único del producto para nombrar la carperta
+     *
+     */
     public function uploadImages($images, $code)
     {
 
@@ -69,7 +109,6 @@ class ProductsController extends Controller
             $path = 'images_products/' . $code . "/";
             $public_id = $code . '_' . $i;
             $path_id = $path . $public_id;
-            // $fileName = $code . '_' . $i . $image->get;
             Cloudder::upload($image, $path_id, array(
                 "public_id" => $path_id
             ));
