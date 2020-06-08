@@ -62,7 +62,7 @@ class ProductsController extends Controller
 
     public function uploadImages($images, $code)
     {
-        // var_dump($images);
+        dd($images);
         foreach ($images as $image) {
             $image->store('uploads/images_products/');
         }
