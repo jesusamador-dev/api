@@ -62,7 +62,7 @@ class ProductsController extends Controller
 
     public function uploadImages($images, $code)
     {
-        $path = storage_path('/uploads/images_products/');
+        $path = public_path('/uploads/images_products/');
         foreach ($images as $image) {
             $fileName = $image->getClientOriginalName();
             $image->move($path, $fileName);
