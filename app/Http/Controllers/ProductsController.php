@@ -70,7 +70,9 @@ class ProductsController extends Controller
             $public_id = $code . '_' . $i;
             $path_id = $path . $public_id;
             // $fileName = $code . '_' . $i . $image->get;
-            Cloudder::upload($image, $path_id);
+            Cloudder::upload($image, $path_id, array(
+                "public_id" => $path_id
+            ));
             $i++;
         }
     }
