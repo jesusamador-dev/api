@@ -50,7 +50,7 @@ class ProductsController extends Controller
 
         try {
             if ($product->save()) {
-                $this->uploadImages($request->file('images'), $code);
+                $this->uploadImages($request->images, $code);
                 return response()->json(['success' => true, 'message' => 'Se ha creado el producto correctamente.'], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'No se ha creado el producto.'], 413);
