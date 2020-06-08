@@ -48,6 +48,8 @@ class ProductsController extends Controller
         $product->quantity_medium_size = $request->quantity_medium_size;
         $product->quantity_big_size = $request->quantity_big_size;
 
+        var_dump($request);
+
         try {
             if ($product->save()) {
                 $this->uploadImages($request->image, $code);
