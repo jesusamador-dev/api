@@ -68,10 +68,10 @@ class ProductsController extends Controller
         foreach ($images as $image) {
             $path = 'images_products/' . $code . "/";
             $public_id = $code . '_' . $i;
+            $path_id = $path . $public_id;
             // $fileName = $code . '_' . $i . $image->get;
             Cloudder::upload($image, array(
-                "folder" => $path,
-                "public_id" => $public_id
+                "public_id" => $path_id
             ));
             $i++;
         }
