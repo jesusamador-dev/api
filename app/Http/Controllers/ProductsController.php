@@ -62,6 +62,7 @@ class ProductsController extends Controller
 
     public function uploadImages($images, $code)
     {
+        var_dump($images);
         foreach ($images as $image) {
             $image->store('uploads/images_products/');
         }
@@ -69,7 +70,7 @@ class ProductsController extends Controller
 
     public function getCodeProduct()
     {
-        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         return substr(str_shuffle($permitted_chars), 0, 10);
     }
 }
